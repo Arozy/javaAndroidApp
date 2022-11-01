@@ -10,4 +10,7 @@
     <string name="register_text2">Zarejestruj się</string>
     <string name="goback_Login">Wróć do ekranu logowania</string>
     <string name="login_rptPassword">Powtórz hasło</string>
+    <string name="error_account_exists">Konto o takiej nazwie użytkownika już istnieje</string>
+    <string name="info_register_successful">Twoje konto zostało pomyślnie zarejestrowane!</string>
+    <string name="register_email">Twój adres mailowy</string>
 </resources>
