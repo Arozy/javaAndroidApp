@@ -2,9 +2,11 @@ package com.example.ocenknajpce;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,12 +27,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
-        EditText et_Login = findViewById(R.id.et_Login);
-        EditText et_Password = findViewById(R.id.et_Password);
+        final EditText et_Login = findViewById(R.id.et_Login);
+        final EditText et_Password = findViewById(R.id.et_Password);
         Button btn_Login = findViewById(R.id.btn_Login);
         TextView tv_Register = findViewById(R.id.tv_Register);
+        final AsyncHttpClient client = new AsyncHttpClient();
+        SharedPreferences preferences = getSharedPreferences("userPreferences", Activity.MODE_PRIVATE);
 
-        AsyncHttpClient client = new AsyncHttpClient();
+        tv_Register.setOnClickListener(view -> {
+            Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(register);
+        });
 
         btn_Login.setOnClickListener(view -> {
             String login = et_Login.getText().toString();
@@ -53,6 +60,9 @@ public class LoginActivity extends AppCompatActivity {
                         String response = new String(responseBody);
 
                         if (TextUtils.isDigitsOnly(response)) {
+                            SharedPreferences.Editor preferencesEditor = preferences.edit();
+                            preferencesEditor.putString("userId", response);
+                            preferencesEditor.commit();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
@@ -67,11 +77,5 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-
-        tv_Register.setOnClickListener(view -> {
-            Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(register);
-        });
-
     }
 }
