@@ -3,13 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_addRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/btn_addRestaurant"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
     <ListView
         android:id="@+id/lv_Restaurants"
-        android:layout_width="411dp"
+        android:layout_width="409dp"
         android:layout_height="673dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_addRestaurant"
+        tools:layout_editor_absoluteX="1dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
