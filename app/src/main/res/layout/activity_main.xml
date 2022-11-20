@@ -10,11 +10,12 @@
         android:id="@+id/btn_addRestaurant"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/btn_addRestaurant"
         android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/lv_Restaurants"

@@ -21,4 +21,12 @@
     <string name="btn_addRestaurant">Dodaj nową</string>
     <string name="restuarant_add_confirmation">Pomyślnie dodano nową restaurację</string>
     <string name="error_api">Error! API nie chce z nami gadać... :/</string>
+    <string name="restaurant_name_dont_exists">Restauracja nie ma nazwy</string>
+    <string name="restaurant_phone_dont_exists">Restauracja nie ma numeru telefonu</string>
+    <string name="option_title">Wybierz opcję</string>
+    <string name="option_view">Zobacz profil restauracji</string>
+    <string name="option_remove">Usuń profil restauracji</string>
+    <string name="restaurant">Restauracja</string>
+    <string name="option_remove_unable">Nie udało się usunąć restauracji z listy (być może już została usunięta)</string>
+    <string name="option_remove_done">została usunięta z listy</string>
 </resources>

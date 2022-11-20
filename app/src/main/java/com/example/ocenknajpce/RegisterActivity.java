@@ -42,13 +42,13 @@ public class RegisterActivity extends AppCompatActivity {
             if (userLogin.isEmpty() || userPassword.isEmpty() || userRptdPass.isEmpty()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                 builder.setTitle(R.string.error)
-                        .setMessage(R.string.error_Empty)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
+                        .setMessage(R.string.error_Empty);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else if(!userPassword.equals(userRptdPass)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setTitle(R.string.error)
+                        .setMessage("Hasła nie są identyczne!");
                 AlertDialog dialog = builder.create();
                 dialog.show();
             } else {

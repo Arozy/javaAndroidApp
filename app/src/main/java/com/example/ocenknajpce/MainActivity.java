@@ -3,9 +3,12 @@ package com.example.ocenknajpce;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -39,14 +42,17 @@ public class MainActivity extends AppCompatActivity {
         lv_Restaurants.setAdapter(restaurantsAdapter);
 
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://dev.imagit.pl/mobilne/api/restaurants/"+userId;
+        String viewRestaurantUrl = "http://dev.imagit.pl/mobilne/api/restaurants/"+userId,
+                removeRestaurantUrl = "https://dev.imagit.pl/mobilne/api/restaurant/delete/"+userId+"/";
 
         btn_addNewRestaurant.setOnClickListener(view -> {
             Intent nextIntent = new Intent(MainActivity.this, AddRestaurantActivity.class);
             startActivity(nextIntent);
         });
 
-        client.get(url, new AsyncHttpResponseHandler() {
+        client.get(viewRestaurantUrl, new AsyncHttpResponseHandler() {
+            private String restaurantId, restaurantName, restaurantPhone, restaurantLatitude, restaurantLong;
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String JSON = new String(responseBody);
@@ -55,17 +61,60 @@ public class MainActivity extends AppCompatActivity {
                     for(int i=0; i<jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String restaurantName = jsonObject.getString("RESTAURANT_NAME");
-                        String restaurantPhone = jsonObject.getString("RESTAURANT_PHONE");
+                        restaurantId = jsonObject.getString("RESTAURANT_ID");
+                        restaurantName = jsonObject.getString("RESTAURANT_NAME");
+                        restaurantPhone = jsonObject.getString("RESTAURANT_PHONE");
+                        restaurantLatitude = jsonObject.getString("RESTAURANT_LAT");
+                        restaurantLong = jsonObject.getString("RESTAURANT_LONG");
 
-                        restaurantsList.add(restaurantName +", "+restaurantPhone);
+                        restaurantsList.add(restaurantName +","+restaurantPhone);
                     }
                     lv_Restaurants.setAdapter(restaurantsAdapter);
 
                     lv_Restaurants.setOnItemClickListener((adapterView, view, i, l) -> {
-                        Toast.makeText(MainActivity.this, "you clicked item"+i+" "+restaurantsList.get(i), Toast.LENGTH_SHORT).show();
-                        Intent viewIntent = new Intent(MainActivity.this, RestaurantViewActivity.class);
-                        startActivity(viewIntent);
+                        String optionView, optionRemove;
+
+                        optionView = getString(R.string.option_view);
+                        optionRemove = getString(R.string.option_remove);
+
+                        final String[] Options = {
+                                optionView, optionRemove
+                        };
+
+                        AlertDialog.Builder optionsBuilder = new AlertDialog.Builder(MainActivity.this);
+                        optionsBuilder.setTitle(R.string.option_title);
+                        optionsBuilder.setItems(Options, (dialogInterface, index) -> {
+                            String removeRestaurantApiToken = removeRestaurantUrl+restaurantId;
+                            String removeRestaurantConfirmation = getString(R.string.restaurant)+" "+restaurantName+" "+getString(R.string.option_remove_done);
+
+                            switch (index) {
+                                case 0:
+                                    Intent viewIntent = new Intent(MainActivity.this, RestaurantViewActivity.class);
+                                    viewIntent.putExtra("restaurantData", restaurantsList.get(i));
+                                    startActivity(viewIntent);
+                                    break;
+                                case 1:
+                                    client.get(removeRestaurantApiToken, new AsyncHttpResponseHandler() {
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                            String response = new String(responseBody);
+
+                                            if (response.equals("OK")) {
+                                                Toast.makeText(MainActivity.this, removeRestaurantConfirmation , Toast.LENGTH_LONG).show();
+                                                recreate();
+                                            } else if (response.equals("ERROR")) {
+                                                Toast.makeText(MainActivity.this, R.string.option_remove_unable, Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                        }
+                                    });
+                                    break;
+                            }
+                        });
+                        optionsBuilder.show();
                     });
 
                 } catch (JSONException e) {
@@ -74,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) { }
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            }
         });
     }
 }

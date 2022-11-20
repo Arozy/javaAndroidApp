@@ -20,5 +20,14 @@
     <string name="btn_addRestaurant">Add new</string>
     <string name="restuarant_add_confirmation">Restaurant has been sucessfully added!</string>
     <string name="error_api">Error! API won\'t talk with us... :/</string>
-    <string name="title_activity_restaurant_view">RestaurantView</string>
+    <string name="title_activity_restaurant_view" translatable="false">RestaurantView</string>
+    <string name="textview" translatable="false">TextView</string>
+    <string name="restaurant_name_dont_exists">Restaurant name not available</string>
+    <string name="restaurant_phone_dont_exists">Restaurant phone not available</string>
+    <string name="option_title">Select an option</string>
+    <string name="option_view">View the restaurant profile</string>
+    <string name="option_remove">Remove the restaurant</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="option_remove_done">has been removed from the list</string>
+    <string name="option_remove_unable">Cannot remove this restaurant from list (probably this restaurant no longer exists)</string>
 </resources>

@@ -1,7 +1,17 @@
 package com.example.ocenknajpce;
 
-import androidx.fragment.app.FragmentActivity;
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.TextView;
+
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,10 +23,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class RestaurantViewActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private TextView name, phone;
+    private float MapZoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_restaurant_view);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -36,9 +49,26 @@ public class RestaurantViewActivity extends FragmentActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        MapZoom = 16;
+        name = findViewById(R.id.tv_restaurantName);
+        phone = findViewById(R.id.tv_restaurantPhone);
+
+        String restaurantData = getIntent().getStringExtra("restaurantData");
+        Log.i("Restaurant data:",restaurantData);
+
+        String restaurantDataArray[] = restaurantData.split("[,]", 0);
+
+        String restaurantName = restaurantDataArray[0];
+        String restaurantPhone = restaurantDataArray[1];
+        double restaurantLat = Double.parseDouble(restaurantDataArray[2]);
+        double restaurantLong = Double.parseDouble(restaurantDataArray[3]);
+
+        name.setText(restaurantName);
+        phone.setText(restaurantPhone);
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        LatLng sydney = new LatLng(restaurantLat, restaurantLong);
+        mMap.setMinZoomPreference(MapZoom);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
