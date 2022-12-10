@@ -30,4 +30,6 @@
     <string name="restaurant">Restaurant</string>
     <string name="option_remove_done">has been removed from the list</string>
     <string name="option_remove_unable">Cannot remove this restaurant from list (probably this restaurant no longer exists)</string>
+    <string name="title_activity_restaurants_view_on_map" translatable="false">RestaurantsViewOnMapActivity</string>
+    <string name="restaurants_show_on_map">Show on map</string>
 </resources>

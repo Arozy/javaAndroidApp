@@ -29,4 +29,5 @@
     <string name="restaurant">Restauracja</string>
     <string name="option_remove_unable">Nie udało się usunąć restauracji z listy (być może już została usunięta)</string>
     <string name="option_remove_done">została usunięta z listy</string>
+    <string name="restaurants_show_on_map">Pokaż na mapie</string>
 </resources>

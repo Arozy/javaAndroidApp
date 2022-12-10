@@ -69,7 +69,7 @@ public class RestaurantViewActivity extends FragmentActivity implements OnMapRea
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(restaurantLat, restaurantLong);
         mMap.setMinZoomPreference(MapZoom);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
