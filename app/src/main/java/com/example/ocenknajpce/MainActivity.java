@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         AsyncHttpClient client = new AsyncHttpClient();
         String viewRestaurantUrl = "http://dev.imagit.pl/mobilne/api/restaurants/"+userId,
-                removeRestaurantUrl = "https://dev.imagit.pl/mobilne/api/restaurantObject/delete/"+userId+"/";
+                removeRestaurantUrl = "https://dev.imagit.pl/mobilne/api/restaurant/delete/"+userId+"/";
 
         btn_addNewRestaurant.setOnClickListener(view -> {
             Intent nextIntent = new Intent(MainActivity.this, AddRestaurantActivity.class);
@@ -121,8 +121,9 @@ public class MainActivity extends AppCompatActivity {
                                             String response = new String(responseBody);
 
                                             if (response.equals("OK")) {
+                                                restaurantsAdapter.remove(restaurantsAdapter.getItem(i));
+                                                restaurantsAdapter.notifyDataSetChanged();
                                                 Toast.makeText(MainActivity.this, removeRestaurantConfirmation , Toast.LENGTH_LONG).show();
-                                                recreate();
                                             } else if (response.equals("ERROR")) {
                                                 Toast.makeText(MainActivity.this, R.string.option_remove_unable, Toast.LENGTH_LONG).show();
                                             }
