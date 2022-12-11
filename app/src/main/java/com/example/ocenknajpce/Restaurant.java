@@ -3,7 +3,7 @@ package com.example.ocenknajpce;
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
-    public Restaurant(int id, String rName, String rPhone, double rLat, double rLong) {
+    public Restaurant(String id, String rName, String rPhone, double rLat, double rLong) {
         this.resId = id;
         this.resName = rName;
         this.resPhone = rPhone;
@@ -11,6 +11,9 @@ public class Restaurant implements Serializable {
         this.resLong = rLong;
     }
 
+    public String getResId() {
+        return this.resId;
+    }
     public String getResName() {
         return this.resName;
     }
@@ -27,7 +30,6 @@ public class Restaurant implements Serializable {
         return this.resLong;
     }
 
-    int resId;
-    String resName, resPhone;
-    double  resLat, resLong;
+    String resId, resName, resPhone;
+    double resLat, resLong;
 }

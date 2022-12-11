@@ -52,12 +52,16 @@ public class RestaurantsViewOnMapActivity extends FragmentActivity implements On
         }
 
         for(MarkerOptions marker : markers) {
-            mMap.addMarker(marker);
+            if (marker.getPosition().latitude != 0 && marker.getPosition().longitude != 0) {
+                mMap.addMarker(marker);
+            }
         }
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (MarkerOptions marker : markers) {
-            builder.include(marker.getPosition());
+            if (marker.getPosition().latitude != 0 && marker.getPosition().longitude != 0) {
+                builder.include(marker.getPosition());
+            }
         }
         LatLngBounds bounds = builder.build();
         int padding = 100;

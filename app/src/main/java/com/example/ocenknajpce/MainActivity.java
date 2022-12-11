@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         client.get(viewRestaurantUrl, new AsyncHttpResponseHandler() {
-            private String restaurantId, restaurantName, restaurantPhone;
+            private String restaurantId, restaurantName, restaurantPhone, restaurantLat, restaurantLong;
+            private double restaurantLatAsDouble, restaurantLongAsDouble;
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -70,13 +71,24 @@ public class MainActivity extends AppCompatActivity {
                         restaurantId = jsonObject.getString("RESTAURANT_ID");
                         restaurantName = jsonObject.getString("RESTAURANT_NAME");
                         restaurantPhone = jsonObject.getString("RESTAURANT_PHONE");
+                        restaurantLat = jsonObject.getString("RESTAURANT_LAT");
+                        restaurantLong = jsonObject.getString("RESTAURANT_LONG");
+
+                        try {
+                            restaurantLatAsDouble = Double.parseDouble(restaurantLat);
+                            restaurantLongAsDouble = Double.parseDouble(restaurantLong);
+
+                        } catch (NumberFormatException e) {
+                            restaurantLatAsDouble = 0;
+                            restaurantLongAsDouble = 0;
+                        }
 
                         Restaurant restaurantObject = new Restaurant(
-                                i,
+                                restaurantId,
                                 jsonObject.getString("RESTAURANT_NAME"),
                                 jsonObject.getString("RESTAURANT_PHONE"),
-                                Double.parseDouble(jsonObject.getString("RESTAURANT_LAT")),
-                                Double.parseDouble(jsonObject.getString("RESTAURANT_LONG"))
+                                restaurantLatAsDouble,
+                                restaurantLongAsDouble
                         );
 
                         restaurantsListOfObjects.add(restaurantObject);
@@ -121,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                                             String response = new String(responseBody);
 
                                             if (response.equals("OK")) {
-                                                restaurantsAdapter.remove(restaurantsAdapter.getItem(i));
+                                                restaurantsAdapter.remove(restaurantsList.get(i));
                                                 restaurantsAdapter.notifyDataSetChanged();
                                                 Toast.makeText(MainActivity.this, removeRestaurantConfirmation , Toast.LENGTH_LONG).show();
                                             } else if (response.equals("ERROR")) {
