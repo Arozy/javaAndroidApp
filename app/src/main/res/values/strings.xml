@@ -11,15 +11,15 @@
     <string name="goback_Login">Come back to login page</string>
     <string name="login_rptPassword">Repeat your password</string>
     <string name="error_account_exists">An account with this user name already exists</string>
-    <string name="info_register_successful">Your account has been succesfully created</string>
-    <string name="register_email">Your e-mail adress</string>
-    <string name="input_restaurant_name">Restaurant name...</string>
-    <string name="input_resturaunt_phone">Phone number...</string>
+    <string name="info_register_successful">Your account has been successfully created</string>
+    <string name="register_email">Your e-mail address</string>
+    <string name="input_restaurant_name">Restaurant name…</string>
+    <string name="input_resturaunt_phone">Phone number…</string>
     <string name="button_gps">Get the GPS coordinates</string>
     <string name="button_submit">Submit</string>
     <string name="btn_addRestaurant">Add new</string>
-    <string name="restuarant_add_confirmation">Restaurant has been sucessfully added!</string>
-    <string name="error_api">Error! API won\'t talk with us... :/</string>
+    <string name="restuarant_add_confirmation">Restaurant has been successfully added!</string>
+    <string name="error_api">Error! API won\'t talk with us… :/</string>
     <string name="title_activity_restaurant_view" translatable="false">RestaurantView</string>
     <string name="textview" translatable="false">TextView</string>
     <string name="restaurant_name_dont_exists">Restaurant name not available</string>
@@ -32,4 +32,5 @@
     <string name="option_remove_unable">Cannot remove this restaurant from list (probably this restaurant no longer exists)</string>
     <string name="title_activity_restaurants_view_on_map" translatable="false">RestaurantsViewOnMapActivity</string>
     <string name="restaurants_show_on_map">Show on map</string>
+    <string name="restaurant_cannot_show_on_map">This restaurant has no coordinates given, as a result of which it is not possible to open a map view for it</string>
 </resources>

@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -34,6 +36,7 @@ public class RestaurantViewActivity extends FragmentActivity implements OnMapRea
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
 
@@ -47,7 +50,7 @@ public class RestaurantViewActivity extends FragmentActivity implements OnMapRea
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         MapZoom = 16;
         name = findViewById(R.id.tv_restaurantName);
@@ -56,20 +59,24 @@ public class RestaurantViewActivity extends FragmentActivity implements OnMapRea
         String restaurantData = getIntent().getStringExtra("restaurantData");
         Log.i("Restaurant data:",restaurantData);
 
-        String restaurantDataArray[] = restaurantData.split("[,]", 0);
+        try {
+            String[] restaurantDataArray = restaurantData.split("[,]", 100);
+            String restaurantName = restaurantDataArray[0];
+            String restaurantPhone = restaurantDataArray[1];
+            double restaurantLat = Double.parseDouble(restaurantDataArray[2]);
+            double restaurantLong = Double.parseDouble(restaurantDataArray[3]);
 
-        String restaurantName = restaurantDataArray[0];
-        String restaurantPhone = restaurantDataArray[1];
-        double restaurantLat = Double.parseDouble(restaurantDataArray[2]);
-        double restaurantLong = Double.parseDouble(restaurantDataArray[3]);
+            name.setText(restaurantName);
+            phone.setText(restaurantPhone);
 
-        name.setText(restaurantName);
-        phone.setText(restaurantPhone);
+            // Add a marker in Sydney and move the camera
+            LatLng sydney = new LatLng(restaurantLat, restaurantLong);
+            mMap.setMinZoomPreference(MapZoom);
+            mMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(restaurantLat, restaurantLong);
-        mMap.setMinZoomPreference(MapZoom);
-        mMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Toast.makeText(getApplicationContext(), R.string.restaurant_cannot_show_on_map, Toast.LENGTH_LONG).show();
+        }
     }
 }

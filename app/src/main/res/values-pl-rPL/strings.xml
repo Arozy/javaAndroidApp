@@ -3,7 +3,7 @@
     <string name="app_name">OcenKnajpke</string>
     <string name="password_hint">Hasło</string>
     <string name="login_hint">Nazwa użytkownika</string>
-    <string name="login_text">Zaloguj się...</string>
+    <string name="login_text">Zaloguj się…</string>
     <string name="register_text">Lub zarejestruj się</string>
     <string name="login_error">Nieprawidłowa nazwa użytkownika i/lub hasło!</string>
     <string name="error">Błąd</string>
@@ -14,13 +14,13 @@
     <string name="error_account_exists">Konto o takiej nazwie użytkownika już istnieje</string>
     <string name="info_register_successful">Twoje konto zostało pomyślnie zarejestrowane!</string>
     <string name="register_email">Twój adres mailowy</string>
-    <string name="input_restaurant_name">Nazwa restauracji...</string>
-    <string name="input_resturaunt_phone">Numer telefonu...</string>
+    <string name="input_restaurant_name">Nazwa restauracji…</string>
+    <string name="input_resturaunt_phone">Numer telefonu…</string>
     <string name="button_gps">Pobierz dane GPS</string>
     <string name="button_submit">Dalej</string>
     <string name="btn_addRestaurant">Dodaj nową</string>
     <string name="restuarant_add_confirmation">Pomyślnie dodano nową restaurację</string>
-    <string name="error_api">Error! API nie chce z nami gadać... :/</string>
+    <string name="error_api">Error! API nie chce z nami gadać… :/</string>
     <string name="restaurant_name_dont_exists">Restauracja nie ma nazwy</string>
     <string name="restaurant_phone_dont_exists">Restauracja nie ma numeru telefonu</string>
     <string name="option_title">Wybierz opcję</string>
@@ -30,4 +30,5 @@
     <string name="option_remove_unable">Nie udało się usunąć restauracji z listy (być może już została usunięta)</string>
     <string name="option_remove_done">została usunięta z listy</string>
     <string name="restaurants_show_on_map">Pokaż na mapie</string>
+    <string name="restaurant_cannot_show_on_map">Ta restauracja nie ma podanych współrzędnych, w skutek czego nie można otworzyć widoku mapy dla niej</string>
 </resources>
