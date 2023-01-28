@@ -56,27 +56,24 @@ public class RestaurantViewActivity extends FragmentActivity implements OnMapRea
         name = findViewById(R.id.tv_restaurantName);
         phone = findViewById(R.id.tv_restaurantPhone);
 
-        String restaurantData = getIntent().getStringExtra("restaurantData");
-        Log.i("Restaurant data:",restaurantData);
+        Intent intent = getIntent();
+        Restaurant restaurantObj = (Restaurant) intent.getExtras().getSerializable("OnlyOneRestaurantObject");
 
-        try {
-            String[] restaurantDataArray = restaurantData.split("[,]", 100);
-            String restaurantName = restaurantDataArray[0];
-            String restaurantPhone = restaurantDataArray[1];
-            double restaurantLat = Double.parseDouble(restaurantDataArray[2]);
-            double restaurantLong = Double.parseDouble(restaurantDataArray[3]);
+            double restaurantLat = restaurantObj != null ? restaurantObj.getLat() : 0.0;
+            double restaurantLong = restaurantObj != null ? restaurantObj.getLong() : 0.0;
 
-            name.setText(restaurantName);
-            phone.setText(restaurantPhone);
+            name.setText(restaurantObj.getResName());
+            phone.setText(restaurantObj.getResPhone());
 
             // Add a marker in Sydney and move the camera
-            LatLng sydney = new LatLng(restaurantLat, restaurantLong);
+            LatLng restaurant = new LatLng(restaurantLat, restaurantLong);
             mMap.setMinZoomPreference(MapZoom);
-            mMap.addMarker(new MarkerOptions().position(sydney).title(restaurantName));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            mMap.addMarker(new MarkerOptions().position(restaurant).title(restaurantObj.getResName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(restaurant));
+    }
 
-        } catch (ArrayIndexOutOfBoundsException e) {
-            Toast.makeText(getApplicationContext(), R.string.restaurant_cannot_show_on_map, Toast.LENGTH_LONG).show();
-        }
+    public void onErrorGoMainActivity() {
+        Toast.makeText(getApplicationContext(), R.string.restaurant_cannot_show_on_map, Toast.LENGTH_LONG).show();
+        this.finish();
     }
 }

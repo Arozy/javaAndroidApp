@@ -123,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
                             switch (index) {
                                 case 0:
                                     Intent viewIntent = new Intent(MainActivity.this, RestaurantViewActivity.class);
-                                    viewIntent.putExtra("restaurantData", restaurantsList.get(i));
+                                    Restaurant onlyOneRestaurantObject = new Restaurant(restaurantId, restaurantName, restaurantPhone, restaurantLatAsDouble, restaurantLongAsDouble);
+                                    viewIntent.putExtra("OnlyOneRestaurantObject", onlyOneRestaurantObject);
                                     startActivity(viewIntent);
                                     break;
                                 case 1:
